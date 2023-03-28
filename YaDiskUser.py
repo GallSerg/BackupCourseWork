@@ -41,7 +41,10 @@ class YaUploader:
         for photo in tqdm(
                 sorted(photos, key=lambda x: x['height'] * x['width'], reverse=True)[:photos_count],
                 desc='Photos uploading'):
-            self.upload(f"/{save_directory}/{photo['filename']}", photo['url'])
+            if save_directory != '' and save_directory != ' ':
+                self.upload(f"/{save_directory}/{photo['filename']}", photo['url'])
+            else:
+                self.upload(f"/{photo['filename']}", photo['url'])
             photo_meta.append({"file_name": photo['filename'], "size": photo['type']})
             time.sleep(0.33)
         print('Upload is succeeded')

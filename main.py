@@ -28,8 +28,11 @@ if __name__ == '__main__':
         save_directory = input("Print directory's name in Yandex Disk to save photos: \n")
     else:
         save_directory = ''
-        print('ATTENTION!!! Photos will be written in a root!')
-    album_id = input("Print album's name for photos downloading (wall / profile): \n")
+        print("ATTENTION!!! Photos will be written in a root! Photo names from root won't be read")
+
+    album_id = ''
+    while album_id not in ('wall', 'profile'):
+        album_id = input("Print album's name for photos downloading (wall / profile): \n")
 
     # Get first page of photos and count all photos in album
     photo_res_json = vk_client.get_photos(vk_user_id, album_id)
@@ -47,11 +50,13 @@ if __name__ == '__main__':
         print(f"{photos_count} photos will be uploaded (input value is bigger than the max photo count).")
 
     # Get photos from Yandex Disk directory and put in list their names
-    time.sleep(1)
-    print(f"Get names of photos from Yandex Disk directory {save_directory}.")
-    photo_names = ya_client.get_dir_photos_list(save_directory)
-    time.sleep(1)
-    print(f'Done. Got {len(photo_names)} photo names.')
+    photo_names = []
+    if save_directory != '' and save_directory != ' ':
+        time.sleep(1)
+        print(f"Get names of photos from Yandex Disk directory {save_directory}.")
+        photo_names = ya_client.get_dir_photos_list(save_directory)
+        time.sleep(1)
+        print(f'Done. Got {len(photo_names)} photo names.')
 
     # Get all photos from VK
     time.sleep(1)
