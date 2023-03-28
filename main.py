@@ -22,7 +22,8 @@ if __name__ == '__main__':
     new_directory = input('Do you need to create a new directory in Yandex Disk? (Yes/No/Root) \n')
     if new_directory == "Yes":
         new_directory_name = input("Print new directory's name in Yandex Disk: \n")
-        save_directory = ya_client.create_directory(new_directory_name)
+        ya_client.create_directory(new_directory_name)
+        save_directory = new_directory_name
     elif new_directory == 'No':
         save_directory = input("Print directory's name in Yandex Disk to save photos: \n")
     else:
